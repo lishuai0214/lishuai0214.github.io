@@ -1,8 +1,8 @@
-# lishuai0214's pages
+# blueshark's pages
 
 ## Build Setup
 
-``` bash
+```
 # install dependencies
 npm install
 

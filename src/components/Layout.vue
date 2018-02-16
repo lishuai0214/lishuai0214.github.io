@@ -48,6 +48,20 @@
         vertical-align: middle;
         font-size: 22px;
     }
+    .markdown-body {
+      box-sizing: border-box;
+      min-width: 200px;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 45px;
+      font-size: 16px;
+    }
+
+    @media (max-width: 767px) {
+      .markdown-body {
+        padding: 15px;
+      }
+    }
 </style>
 <template>
     <div class="layout">
@@ -73,27 +87,28 @@
                     <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
                 </Header>
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
-                    Content
+                  <div v-html="markdown2html" v-highlight class="markdown-body"></div>
                 </Content>
             </Layout>
         </Layout>
     </div>
 </template>
+
 <script>
+    import axios from 'axios'
+    import marked from 'marked'
+    import showdown from 'showdown'
     export default {
         data () {
             return {
                 isCollapsed: false,
-                pageHeight: 900
+                pageHeight: 900,
+                markdown2html: null
             }
         },
         created() {
-          this.pageHeight = window.innerHeight - 2
-          window.onresize = () => {
-              return (() => {
-                  this.pageHeight = window.innerHeight - 2
-              })()
-          }
+          this.setpageHeight()
+          this.getMarkdownfile()
         },
         computed: {
             rotateIcon () {
@@ -112,6 +127,26 @@
         methods: {
             collapsedSider () {
                 this.$refs.side1.toggleCollapse();
+            },
+            setpageHeight () {
+              this.pageHeight = window.innerHeight - 2
+              window.onresize = () => {
+                  return (() => {
+                      this.pageHeight = window.innerHeight - 2
+                  })()
+              }
+            },
+            getMarkdownfile(){
+              let self = this
+              const converter = new showdown.Converter()
+              axios.get('markdowndocs/test.md')
+                .then(function (response) {
+                  console.log(response.data);
+                  self.markdown2html = converter.makeHtml(response.data)
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
             }
         }
     }

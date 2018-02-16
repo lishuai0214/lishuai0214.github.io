@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
+import Highlight from './plug-in/highlight.js'
+
+Vue.use(Highlight)
 
 Vue.use(iView);
 
