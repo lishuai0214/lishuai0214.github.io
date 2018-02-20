@@ -52,9 +52,10 @@
       box-sizing: border-box;
       min-width: 200px;
       max-width: 980px;
-      margin: 0 auto;
+      margin: 30px auto 0 auto;
       padding: 45px;
       font-size: 16px;
+      background: #ffffff;
     }
 
     @media (max-width: 767px) {
@@ -83,12 +84,7 @@
                 </Menu>
             </Sider>
             <Layout>
-                <Header :style="{padding: 0}" class="layout-header-bar">
-                    <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
-                </Header>
-                <!-- <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}"> -->
-                  <div v-html="markdown2html" class="markdown-body"></div>
-                <!-- </Content> -->
+              <div v-html="markdown2html" v-highlight class="markdown-body"></div>
             </Layout>
         </Layout>
     </div>
@@ -141,8 +137,8 @@
               const converter = new showdown.Converter()
               axios.get('markdowndocs/test.md')
                 .then(function (response) {
-                  console.log(response.data);
-                  self.markdown2html = converter.makeHtml(response.data)
+                  //self.markdown2html = converter.makeHtml(response.data)
+                  self.markdown2html = marked(response.data)
                 })
                 .catch(function (error) {
                   console.log(error);

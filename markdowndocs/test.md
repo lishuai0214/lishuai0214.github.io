@@ -1,449 +1,427 @@
-# AWS SDK for Go
+<img src="https://github.com/openstf/stf/blob/master/res/common/logo/exports/STF-128.png?raw=true" style="width:100px;height:100px;" alt="STF">
 
-aws-sdk-go is the official AWS SDK for the Go programming language.
+[![Build Status](https://travis-ci.org/openstf/stf.svg?branch=master)](https://travis-ci.org/openstf/stf)
+[![Docker Pulls](https://img.shields.io/docker/pulls/openstf/stf.svg)](https://hub.docker.com/r/openstf/stf/)
+[![NPM version](https://img.shields.io/npm/v/stf.svg)](https://www.npmjs.com/package/stf)
 
-Checkout our [release notes](https://github.com/aws/aws-sdk-go/releases) for information about the latest bug fixes, updates, and features added to the SDK.
+**STF** (or Smartphone Test Farm) is a web application for debugging smartphones, smartwatches and other gadgets remotely, from the comfort of your browser.
 
-We [announced](https://aws.amazon.com/blogs/developer/aws-sdk-for-go-2-0-developer-preview/) the Developer Preview for the [v2 AWS SDK for Go](). The v2 SDK is available at https://github.com/aws/aws-sdk-go-v2, and `go get github.com/aws/aws-sdk-go-v2` via `go get`. Check out the v2 SDK's [changes and updates](https://github.com/aws/aws-sdk-go-v2/blob/master/CHANGELOG.md), and let us know what you think. We want your feedback.
+STF was originally developed at [CyberAgent](https://www.cyberagent.co.jp/en/) to control a growing collection of more than 160 devices. As of July 2016 development is mainly sponsored by [HeadSpin](https://performance.headspin.io/) and [other individual contributors](https://www.bountysource.com/teams/openstf).
 
-## Installing
+Please visit [our  BountySource](https://salt.bountysource.com/teams/openstf) if you'd like to support future development. How are your donations being used? Check out our [donation transparency report](DONATION-TRANSPARENCY.md).
 
-If you are using Go 1.5 with the `GO15VENDOREXPERIMENT=1` vendoring flag, or 1.6 and higher you can use the following command to retrieve the SDK. The SDK's non-testing dependencies will be included and are vendored in the `vendor` folder.
+![Close-up of device shelf](doc/shelf_closeup_790x.jpg?raw=true)
 
-    go get -u github.com/aws/aws-sdk-go
+![Super short screencast showing usage](doc/7s_usage.gif?raw=true)
 
-Otherwise if your Go environment does not have vendoring support enabled, or you do not want to include the vendored SDK's dependencies you can use the following command to retrieve the SDK and its non-testing dependencies using `go get`.
+## Sponsors
 
-    go get -u github.com/aws/aws-sdk-go/aws/...
-    go get -u github.com/aws/aws-sdk-go/service/...
+### Gold Sponsor
 
-If you're looking to retrieve just the SDK without any dependencies use the following command.
+[<img src="https://github.com/openstf/stf/blob/master/doc/shelf_closeup_790x.jpg?raw=true" alt="HeadSpin" width="400">](https://performance.headspin.io/)
 
-    go get -d github.com/aws/aws-sdk-go/
+> [HeadSpin](https://performance.headspin.io/) enables developers launch high quality and high performing apps Worldwide. Using HeadSpin’s global distributed device cloud infrastructure, developers can test and monitor their apps instantly on 1,500 global cell networks and local devices. HeadSpin seamlessly plugs into your development workflow with no code changes to your apps.
 
-These two processes will still include the `vendor` folder and it should be deleted if its not going to be used by your environment.
+HeadSpin offers a generous monthly contribution towards STF development.
 
-    rm -rf $GOPATH/src/github.com/aws/aws-sdk-go/vendor
+### How to become a sponsor
 
-## Getting Help
+Please [contact us][contact-link] for sponsor arrangements. Both recurring and one-time contributions are most welcome. Contributions towards a specific issue or feature are also possible, and can be attributed to your company in our release notes and other related materials. Hardware-only contributions, whether new or used, are also extremely helpful and well received, especially if you find a device that doesn't work. Please see our [donation transparency report](DONATION-TRANSPARENCY.md) for past hardware contributions.
 
-Please use these community resources for getting help. We use the GitHub issues for tracking bugs and feature requests.
+## Features
 
-* Ask a question on [StackOverflow](http://stackoverflow.com/) and tag it with the [`aws-sdk-go`](http://stackoverflow.com/questions/tagged/aws-sdk-go) tag.
-* Come join the AWS SDK for Go community chat on [gitter](https://gitter.im/aws/aws-sdk-go).
-* Open a support ticket with [AWS Support](http://docs.aws.amazon.com/awssupport/latest/user/getting-started.html).
-* If you think you may have found a bug, please open an [issue](https://github.com/aws/aws-sdk-go/issues/new).
+* OS support
+  - Android
+    * Supports versions 2.3.3 (SDK level 10) to 8.1 (SDK level 27)
+    * Supports Wear 5.1 (but not 5.0 due to missing permissions)
+    * Supports Fire OS, CyanogenMod, and other heavily Android based distributions
+    * `root` is **not** required for any current functionality
+* Remote control any device from your browser
+  - Real-time screen view
+    * Refresh speed can reach 30-40 FPS depending on specs and Android version. See [minicap](https://github.com/openstf/minicap) for more information.
+    * Rotation support
+  - Supports typing text from your own keyboard
+    * Supports meta keys
+    * Copy and paste support (although it can be a bit finicky on older devices, you may need to long-press and select paste manually)
+    * May sometimes not work well with non-Latin languages unfortunately.
+  - Multitouch support on touch screens via [minitouch](https://github.com/openstf/minitouch), two finger pinch/rotate/zoom gesture support on regular screens by pressing `Alt` while dragging
+  - Drag & drop installation and launching of `.apk` files
+    * Launches main launcher activity if specified in the manifest
+  - Reverse port forwarding via [minirev](https://github.com/openstf/minirev)
+    * Access your local server directly from the device, even if it's not on the same network
+  - Open websites easily in any browser
+    * Installed browsers are detected in real time and shown as selectable options
+    * Default browser is detected automatically if selected by the user
+  - Execute shell commands and see real-time output
+  - Display and filter device logs
+  - Use `adb connect` to connect to a remote device as if it was plugged in to your computer, regardless of [ADB](http://developer.android.com/tools/help/adb.html) mode and whether you're connected to the same network
+    * Run any `adb` command locally, including shell access
+    * [Android Studio](http://developer.android.com/tools/studio/index.html) and other IDE support, debug your app while watching the device screen on your browser
+    * Supports [Chrome remote debug tools](https://developer.chrome.com/devtools/docs/remote-debugging)
+  - File Explorer to access device file system
+  - Experimental VNC support (work in progress)
+* Manage your device inventory
+  - See which devices are connected, offline/unavailable (indicating a weak USB connection), unauthorized or unplugged
+  - See who's using a device
+  - Search devices by phone number, IMEI, ICCID, Android version, operator, product name and/or many other attributes with easy but powerful queries
+  - Show a bright red screen with identifying information on a device you need to locate physically
+  - Track battery level and health
+  - Rudimentary Play Store account management
+    * List, remove and add new accounts (adding may not work on all devices)
+  - Display hardware specs
+* Simple REST [API](doc/API.md)
 
-## Opening Issues
+## Status
 
-If you encounter a bug with the AWS SDK for Go we would like to hear about it. Search the [existing issues](https://github.com/aws/aws-sdk-go/issues) and see if others are also experiencing the issue before opening a new issue. Please include the version of AWS SDK for Go, Go language, and OS you’re using. Please also include repro case when appropriate.
+STF is in continued, active development, but development is still largely funded by individual team members and their unpaid free time, leading to slow progress. While normal for many open source projects, STF is quite heavy on the hardware side, and is therefore somewhat of a money sink. See [how to become a sponsor](#how-to-become-a-sponsor) if you or your company would like to support future development.
 
-The GitHub issues are intended for bug reports and feature requests. For help and questions with using AWS SDK for GO please make use of the resources listed in the [Getting Help](https://github.com/aws/aws-sdk-go#getting-help) section. Keeping the list of open issues lean will help us respond in a timely manner.
+We're also actively working to expand the team, don't be afraid to ask if you're interested.
 
-## Reference Documentation
+### Short term goals
 
-[`Getting Started Guide`](https://aws.amazon.com/sdk-for-go/) - This document is a general introduction how to configure and make requests with the SDK. If this is your first time using the SDK, this documentation and the API documentation will help you get started. This document focuses on the syntax and behavior of the SDK. The [Service Developer Guide](https://aws.amazon.com/documentation/) will help you get started using specific AWS services.
+Here are some things we are planning to address ASAP.
 
-[`SDK API Reference Documentation`](https://docs.aws.amazon.com/sdk-for-go/api/) - Use this document to look up all API operation input and output parameters for AWS services supported by the SDK. The API reference also includes documentation of the SDK, and examples how to using the SDK, service client API operations, and API operation require parameters.
+1. Performance
+2. Properly expose the new VNC functionality in the UI
+3. Properly reset user data between uses (Android 4.0+)
+4. Automated scheduled restarts for devices
+5. More!
 
-[`Service Developer Guide`](https://aws.amazon.com/documentation/) - Use this documentation to learn how to interface with an AWS service. These are great guides both, if you're getting started with a service, or looking for more information on a service. You should not need this document for coding, though in some cases, services may supply helpful samples that you might want to look out for.
+### Consulting services
 
-[`SDK Examples`](https://github.com/aws/aws-sdk-go/tree/master/example) - Included in the SDK's repo are a several hand crafted examples using the SDK features and AWS services.
+We highly encourage open participation in the community. However, if you're running a business that uses STF or would like to use STF, you may sometimes want to have an expert, i.e. one of the original developers or a skilled contributor, work with you to set up a prototype for evaluation purposes, add support for new or old hardware, figure out an issue, fix a bug or add some new feature. Our services are similar to [FFmpeg's](https://ffmpeg.org/consulting.html). [Contact us][contact-link] with details and we'll see what we can do.
 
-## Overview of SDK's Packages
+Availability is limited and tied to individual developer's schedules.
 
-The SDK is composed of two main components, SDK core, and service clients.
-The SDK core packages are all available under the aws package at the root of
-the SDK. Each client for a supported AWS service is available within its own
-package under the service folder at the root of the SDK.
+## A quick note about security
 
-  * aws - SDK core, provides common shared types such as Config, Logger,
-    and utilities to make working with API parameters easier.
+As the product has evolved from an internal tool running in our internal network, we have made certain assumptions about the trustworthiness of our users. As such, there is little to no security or encryption between the different processes. Furthermore, devices do not get completely reset between uses, potentially leaving accounts logged in or exposing other sensitive data. This is not an issue for us, as all of our devices are test devices and are only used with test accounts, but it may be an issue for you if you plan on deploying STF to a multiuser environment. We welcome contributions in this area.
 
-      * awserr - Provides the error interface that the SDK will use for all
-        errors that occur in the SDK's processing. This includes service API
-        response errors as well. The Error type is made up of a code and message.
-        Cast the SDK's returned error type to awserr.Error and call the Code
-        method to compare returned error to specific error codes. See the package's
-        documentation for additional values that can be extracted such as RequestID.
+## Requirements
 
-      * credentials - Provides the types and built in credentials providers
-        the SDK will use to retrieve AWS credentials to make API requests with.
-        Nested under this folder are also additional credentials providers such as
-        stscreds for assuming IAM roles, and ec2rolecreds for EC2 Instance roles.
+* [Node.js](https://nodejs.org/) >= 6.9 (latest stable version preferred)
+* [ADB](http://developer.android.com/tools/help/adb.html) properly set up
+* [RethinkDB](http://rethinkdb.com/) >= 2.2
+* [GraphicsMagick](http://www.graphicsmagick.org/) (for resizing screenshots)
+* [ZeroMQ](http://zeromq.org/) libraries installed
+* [Protocol Buffers](https://github.com/google/protobuf) libraries installed
+* [yasm](http://yasm.tortall.net/) installed (for compiling embedded [libjpeg-turbo](https://github.com/sorccu/node-jpeg-turbo))
+* [pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config/) so that Node.js can find the libraries
 
-      * endpoints - Provides the AWS Regions and Endpoints metadata for the SDK.
-        Use this to lookup AWS service endpoint information such as which services
-        are in a region, and what regions a service is in. Constants are also provided
-        for all region identifiers, e.g UsWest2RegionID for "us-west-2".
+Note that you need these dependencies even if you've installed STF directly from [NPM](https://www.npmjs.com/), because they can't be included in the package.
 
-      * session - Provides initial default configuration, and load
-        configuration from external sources such as environment and shared
-        credentials file.
+On Mac OS, you can use [homebrew](http://brew.sh/) to install most of the dependencies:
 
-      * request - Provides the API request sending, and retry logic for the SDK.
-        This package also includes utilities for defining your own request
-        retryer, and configuring how the SDK processes the request.
-
-  * service - Clients for AWS services. All services supported by the SDK are
-    available under this folder.
-
-## How to Use the SDK's AWS Service Clients
-
-The SDK includes the Go types and utilities you can use to make requests to
-AWS service APIs. Within the service folder at the root of the SDK you'll find
-a package for each AWS service the SDK supports. All service clients follows
-a common pattern of creation and usage.
-
-When creating a client for an AWS service you'll first need to have a Session
-value constructed. The Session provides shared configuration that can be shared
-between your service clients. When service clients are created you can pass
-in additional configuration via the aws.Config type to override configuration
-provided by in the Session to create service client instances with custom
-configuration.
-
-Once the service's client is created you can use it to make API requests the
-AWS service. These clients are safe to use concurrently.
-
-## Configuring the SDK
-
-In the AWS SDK for Go, you can configure settings for service clients, such
-as the log level and maximum number of retries. Most settings are optional;
-however, for each service client, you must specify a region and your credentials.
-The SDK uses these values to send requests to the correct AWS region and sign
-requests with the correct credentials. You can specify these values as part
-of a session or as environment variables.
-
-See the SDK's [configuration guide][config_guide] for more information.
-
-See the [session][session_pkg] package documentation for more information on how to use Session
-with the SDK.
-
-See the [Config][config_typ] type in the [aws][aws_pkg] package for more information on configuration
-options.
-
-[config_guide]: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html
-[session_pkg]: https://docs.aws.amazon.com/sdk-for-go/api/aws/session/
-[config_typ]: https://docs.aws.amazon.com/sdk-for-go/api/aws/#Config
-[aws_pkg]: https://docs.aws.amazon.com/sdk-for-go/api/aws/
-
-### Configuring Credentials
-
-When using the SDK you'll generally need your AWS credentials to authenticate
-with AWS services. The SDK supports multiple methods of supporting these
-credentials. By default the SDK will source credentials automatically from
-its default credential chain. See the session package for more information
-on this chain, and how to configure it. The common items in the credential
-chain are the following:
-
-  * Environment Credentials - Set of environment variables that are useful
-    when sub processes are created for specific roles.
-
-  * Shared Credentials file (~/.aws/credentials) - This file stores your
-    credentials based on a profile name and is useful for local development.
-
-  * EC2 Instance Role Credentials - Use EC2 Instance Role to assign credentials
-    to application running on an EC2 instance. This removes the need to manage
-    credential files in production.
-
-Credentials can be configured in code as well by setting the Config's Credentials
-value to a custom provider or using one of the providers included with the
-SDK to bypass the default credential chain and use a custom one. This is
-helpful when you want to instruct the SDK to only use a specific set of
-credentials or providers.
-
-This example creates a credential provider for assuming an IAM role, "myRoleARN"
-and configures the S3 service client to use that role for API requests.
-
-```go
-  // Initial credentials loaded from SDK's default credential chain. Such as
-  // the environment, shared credentials (~/.aws/credentials), or EC2 Instance
-  // Role. These credentials will be used to to make the STS Assume Role API.
-  sess := session.Must(session.NewSession())
-
-  // Create the credentials from AssumeRoleProvider to assume the role
-  // referenced by the "myRoleARN" ARN.
-  creds := stscreds.NewCredentials(sess, "myRoleArn")
-
-  // Create service client value configured for credentials
-  // from assumed role.
-  svc := s3.New(sess, &aws.Config{Credentials: creds})
+```bash
+brew install rethinkdb graphicsmagick zeromq protobuf yasm pkg-config
 ```
 
-See the [credentials][credentials_pkg] package documentation for more information on credential
-providers included with the SDK, and how to customize the SDK's usage of
-credentials.
+On Windows you're on your own. In theory you might be able to get STF installed via [Cygwin](https://www.cygwin.com/) or similar, but we've never tried. In principle we will not provide any Windows installation support, but please do send a documentation pull request if you figure out what to do.
 
-The SDK has support for the shared configuration file (~/.aws/config). This
-support can be enabled by setting the environment variable, "AWS_SDK_LOAD_CONFIG=1",
-or enabling the feature in code when creating a Session via the
-Option's SharedConfigState parameter.
+We also provide a [Docker](http://docker.com/) container in the [Docker Hub](https://hub.docker.com/) as [openstf/stf](https://registry.hub.docker.com/u/openstf/stf/). You can use our [Dockerfile](Dockerfile) as guidance if you'd prefer to do the installation yourself.
 
-```go
-  sess := session.Must(session.NewSessionWithOptions(session.Options{
-      SharedConfigState: session.SharedConfigEnable,
-  }))
+You should now be ready to [build](#building) or [run](#running) STF.
+
+Note that while Mac OS can be used for development, it doesn't provide a very reliable experience in production due to (presumed) bugs in ADB's Mac OS implementation. We use [CoreOS](https://coreos.com/) but any Linux or BSD distribution should do fine.
+
+## Installation
+
+As mentioned earlier, you must have all of the [requirements](#requirements) installed first. Then you can simply install via NPM:
+
+```bash
+npm install -g stf
 ```
 
-[credentials_pkg]: https://docs.aws.amazon.com/sdk-for-go/api/aws/credentials
+Now you're ready to [run](#running). For development, though, you should [build](#building) instead.
 
-### Configuring AWS Region
+## Building
 
-In addition to the credentials you'll need to specify the region the SDK
-will use to make AWS API requests to. In the SDK you can specify the region
-either with an environment variable, or directly in code when a Session or
-service client is created. The last value specified in code wins if the region
-is specified multiple ways.
+After you've got all the [requirements](#requirements) installed, it's time to fetch the rest of the dependencies.
 
-To set the region via the environment variable set the "AWS_REGION" to the
-region you want to the SDK to use. Using this method to set the region will
-allow you to run your application in multiple regions without needing additional
-code in the application to select the region.
+First, fetch all NPM and Bower modules:
 
-    AWS_REGION=us-west-2
-
-The endpoints package includes constants for all regions the SDK knows. The
-values are all suffixed with RegionID. These values are helpful, because they
-reduce the need to type the region string manually.
-
-To set the region on a Session use the aws package's Config struct parameter
-Region to the AWS region you want the service clients created from the session to
-use. This is helpful when you want to create multiple service clients, and
-all of the clients make API requests to the same region.
-
-```go
-  sess := session.Must(session.NewSession(&aws.Config{
-      Region: aws.String(endpoints.UsWest2RegionID),
-  }))
+```bash
+npm install
 ```
 
-See the [endpoints][endpoints_pkg] package for the AWS Regions and Endpoints metadata.
+You may also wish to link the module so that you'll be able to access the `stf` command directly from the command line:
 
-In addition to setting the region when creating a Session you can also set
-the region on a per service client bases. This overrides the region of a
-Session. This is helpful when you want to create service clients in specific
-regions different from the Session's region.
-
-```go
-  svc := s3.New(sess, &aws.Config{
-      Region: aws.String(endpoints.UsWest2RegionID),
-  })
+```bash
+npm link
 ```
 
-See the [Config][config_typ] type in the [aws][aws_pkg] package for more information and additional
-options such as setting the Endpoint, and other service client configuration options.
+You should now have a working installation for local development.
 
-[endpoints_pkg]: https://docs.aws.amazon.com/sdk-for-go/api/aws/endpoints/
+## Running
 
-## Making API Requests
+STF comprises of several independent processes that must normally be launched separately. In our own setup each one these processes is its own [systemd](http://www.freedesktop.org/wiki/Software/systemd/) unit. See [DEPLOYMENT.md](doc/DEPLOYMENT.md) and [Setup Examples](https://github.com/openstf/setup-examples) if you're interested.
 
-Once the client is created you can make an API request to the service.
-Each API method takes a input parameter, and returns the service response
-and an error. The SDK provides methods for making the API call in multiple ways.
+For development purposes, however, there's a helper command to quickly launch all required processes along with a mock login implementation. Note that you **must** have RethinkDB running first.
 
-In this list we'll use the S3 ListObjects API as an example for the different
-ways of making API requests.
+If you don't have RethinkDB set up yet, to start it up, go to the folder where you'd like RethinkDB to create a `rethinkdb_data` folder in (perhaps the folder where this repo is) and run the following command:
 
-  * ListObjects - Base API operation that will make the API request to the service.
-
-  * ListObjectsRequest - API methods suffixed with Request will construct the
-    API request, but not send it. This is also helpful when you want to get a
-    presigned URL for a request, and share the presigned URL instead of your
-    application making the request directly.
-
-  * ListObjectsPages - Same as the base API operation, but uses a callback to
-    automatically handle pagination of the API's response.
-
-  * ListObjectsWithContext - Same as base API operation, but adds support for
-    the Context pattern. This is helpful for controlling the canceling of in
-    flight requests. See the Go standard library context package for more
-    information. This method also takes request package's Option functional
-    options as the variadic argument for modifying how the request will be
-    made, or extracting information from the raw HTTP response.
-
-  * ListObjectsPagesWithContext - same as ListObjectsPages, but adds support for
-    the Context pattern. Similar to ListObjectsWithContext this method also
-    takes the request package's Option function option types as the variadic
-    argument.
-
-In addition to the API operations the SDK also includes several higher level
-methods that abstract checking for and waiting for an AWS resource to be in
-a desired state. In this list we'll use WaitUntilBucketExists to demonstrate
-the different forms of waiters.
-
-  * WaitUntilBucketExists. - Method to make API request to query an AWS service for
-    a resource's state. Will return successfully when that state is accomplished.
-
-  * WaitUntilBucketExistsWithContext - Same as WaitUntilBucketExists, but adds
-    support for the Context pattern. In addition these methods take request
-    package's WaiterOptions to configure the waiter, and how underlying request
-    will be made by the SDK.
-
-The API method will document which error codes the service might return for
-the operation. These errors will also be available as const strings prefixed
-with "ErrCode" in the service client's package. If there are no errors listed
-in the API's SDK documentation you'll need to consult the AWS service's API
-documentation for the errors that could be returned.
-
-```go
-  ctx := context.Background()
-
-  result, err := svc.GetObjectWithContext(ctx, &s3.GetObjectInput{
-      Bucket: aws.String("my-bucket"),
-      Key: aws.String("my-key"),
-  })
-  if err != nil {
-      // Cast err to awserr.Error to handle specific error codes.
-      aerr, ok := err.(awserr.Error)
-      if ok && aerr.Code() == s3.ErrCodeNoSuchKey {
-          // Specific error code handling
-      }
-      return err
-  }
-
-  // Make sure to close the body when done with it for S3 GetObject APIs or
-  // will leak connections.
-  defer result.Body.Close()
-
-  fmt.Println("Object Size:", aws.Int64Value(result.ContentLength))
+```bash
+rethinkdb
 ```
 
-### API Request Pagination and Resource Waiters
+_Note: if it takes a long time for RethinkDB to start up, you may be running into [rethinkdb/rethinkdb#4600](https://github.com/rethinkdb/rethinkdb/issues/4600) (or [rethinkdb/rethinkdb#6047](https://github.com/rethinkdb/rethinkdb/issues/6047)). This usually happens on macOS Sierra. To fix this on macOS, first run `scutil --get HostName` to check if the HostName variable is unset. RethinkDB needs it to generate a server name for your instance. If you find that it's empty, running `sudo scutil --set HostName $(hostname)` has been confirmed to fix the issue on at least one occasion. See the issues for more complete solutions._
 
-Pagination helper methods are suffixed with "Pages", and provide the
-functionality needed to round trip API page requests. Pagination methods
-take a callback function that will be called for each page of the API's response.
+You should now have RethinkDB running locally. Running the command again in the same folder will reuse the data from the previous session.
 
-```go
-   objects := []string{}
-   err := svc.ListObjectsPagesWithContext(ctx, &s3.ListObjectsInput{
-       Bucket: aws.String(myBucket),
-   }, func(p *s3.ListObjectsOutput, lastPage bool) bool {
-       for _, o := range p.Contents {
-           objects = append(objects, aws.StringValue(o.Key))
-       }
-       return true // continue paging
-   })
-   if err != nil {
-       panic(fmt.Sprintf("failed to list objects for bucket, %s, %v", myBucket, err))
-   }
+You're now ready to start up STF itself:
 
-   fmt.Println("Objects in bucket:", objects)
+```bash
+stf local
 ```
 
-Waiter helper methods provide the functionality to wait for an AWS resource
-state. These methods abstract the logic needed to to check the state of an
-AWS resource, and wait until that resource is in a desired state. The waiter
-will block until the resource is in the state that is desired, an error occurs,
-or the waiter times out. If a resource times out the error code returned will
-be request.WaiterResourceNotReadyErrorCode.
+After the [webpack](http://webpack.github.io/) build process has finished (which can take a small while) you should have your private STF running on [http://localhost:7100](http://localhost:7100). If you had devices connected before running the command, those devices should now be available for use. If not, you should see what went wrong from your console. Feel free to plug in or unplug any devices at any time.
 
-```go
-  err := svc.WaitUntilBucketExistsWithContext(ctx, &s3.HeadBucketInput{
-      Bucket: aws.String(myBucket),
-  })
-  if err != nil {
-      aerr, ok := err.(awserr.Error)
-      if ok && aerr.Code() == request.WaiterResourceNotReadyErrorCode {
-          fmt.Fprintf(os.Stderr, "timed out while waiting for bucket to exist")
-      }
-      panic(fmt.Errorf("failed to wait for bucket to exist, %v", err))
-  }
-  fmt.Println("Bucket", myBucket, "exists")
+Note that if you see your device ready to use but without a name or a proper image, we're probably missing the data for that model in [our device database](https://github.com/openstf/stf-device-db). Everything should work fine either way.
+
+If you want to access STF from other machines, you can add the `--public-ip` option for quick testing.
+
+```bash
+stf local --public-ip <your_internal_network_ip_here>
 ```
 
-## Complete SDK Example
+## Updating
 
-This example shows a complete working Go file which will upload a file to S3
-and use the Context pattern to implement timeout logic that will cancel the
-request if it takes too long. This example highlights how to use sessions,
-create a service client, make a request, handle the error, and process the
-response.
+To update your development version, simply pull the repo and run `npm install` again. You may occasionally have to remove the whole `node_modules` and `res/bower_components` folder to prevent NPM or Bower from complaining about version mismatches.
 
-```go
-  package main
+## FAQ
 
-  import (
-    "context"
-    "flag"
-    "fmt"
-    "os"
-    "time"
+### Can I deploy STF to actual servers?
 
-    "github.com/aws/aws-sdk-go/aws"
-    "github.com/aws/aws-sdk-go/aws/awserr"
-    "github.com/aws/aws-sdk-go/aws/request"
-    "github.com/aws/aws-sdk-go/aws/session"
-    "github.com/aws/aws-sdk-go/service/s3"
-  )
+Yes, see [DEPLOYMENT.md](doc/DEPLOYMENT.md) and [Setup Examples](https://github.com/openstf/setup-examples).
 
-  // Uploads a file to S3 given a bucket and object key. Also takes a duration
-  // value to terminate the update if it doesn't complete within that time.
-  //
-  // The AWS Region needs to be provided in the AWS shared config or on the
-  // environment variable as `AWS_REGION`. Credentials also must be provided
-  // Will default to shared config file, but can load from environment if provided.
-  //
-  // Usage:
-  //   # Upload myfile.txt to myBucket/myKey. Must complete within 10 minutes or will fail
-  //   go run withContext.go -b mybucket -k myKey -d 10m < myfile.txt
-  func main() {
-    var bucket, key string
-    var timeout time.Duration
+### Will I have to change battery packs all the time?
 
-    flag.StringVar(&bucket, "b", "", "Bucket name.")
-    flag.StringVar(&key, "k", "", "Object key name.")
-    flag.DurationVar(&timeout, "d", 0, "Upload timeout.")
-    flag.Parse()
+No, not all the time. Aside from a single early failure we had within only a few months, all of our devices were doing fine for about two years. However, having reached the 2-3 year mark, several devices have started to experience visibly expanded batteries. Expanded batteries should be replaced as soon as possible. Note that this issue isn't specific to STF, it's just what happens over time. You should be prepared to replace the batteries every now and then. In any case, we consider 2 years per battery pack to be fairly good value for a device lab.
 
-    // All clients require a Session. The Session provides the client with
-  // shared configuration such as region, endpoint, and credentials. A
-  // Session should be shared where possible to take advantage of
-  // configuration and credential caching. See the session package for
-  // more information.
-    sess := session.Must(session.NewSession())
+You should set up your devices so that the display is allowed to turn off entirely after a short timeout. 30 seconds or so should do just fine, STF will wake it up when necessary. Otherwise you risk reducing the lifetime of your device.
 
-  // Create a new instance of the service's client with a Session.
-  // Optional aws.Config values can also be provided as variadic arguments
-  // to the New function. This option allows you to provide service
-  // specific configuration.
-    svc := s3.New(sess)
+Note that you may have a problem if your USB hubs are unable to both provide enough power for charging and support a data connection at the same time (data connections require power, too). This can cause a device to stop charging when being used, resulting in many charging cycles. If this happens you will just need to [get a better USB hub](#recommended-hardware).
 
-    // Create a context with a timeout that will abort the upload if it takes
-    // more than the passed in timeout.
-    ctx := context.Background()
-    var cancelFn func()
-    if timeout > 0 {
-      ctx, cancelFn = context.WithTimeout(ctx, timeout)
-    }
-    // Ensure the context is canceled to prevent leaking.
-    // See context package for more information, https://golang.org/pkg/context/
-    defer cancelFn()
+### Is the system secure?
 
-    // Uploads the object to S3. The Context will interrupt the request if the
-    // timeout expires.
-    _, err := svc.PutObjectWithContext(ctx, &s3.PutObjectInput{
-      Bucket: aws.String(bucket),
-      Key:    aws.String(key),
-      Body:   os.Stdin,
-    })
-    if err != nil {
-      if aerr, ok := err.(awserr.Error); ok && aerr.Code() == request.CanceledErrorCode {
-        // If the SDK can determine the request or retry delay was canceled
-        // by a context the CanceledErrorCode error code will be returned.
-        fmt.Fprintf(os.Stderr, "upload canceled due to timeout, %v\n", err)
-      } else {
-        fmt.Fprintf(os.Stderr, "failed to upload object, %v\n", err)
-      }
-      os.Exit(1)
-    }
+It's possible to run the whole user-facing side behind HTTPS, but that's pretty much it. All internal communication between processes is insecure and unencrypted, which is a problem if you can eavesdrop on the network. See our [quick note about security](#a-quick-note-about-security).
 
-    fmt.Printf("successfully uploaded file to %s/%s\n", bucket, key)
-  }
+### Can I just put the system online, put a few devices there and start selling it?
+
+Yes and no. See "[Is the system secure?](#is-the-system-secure)". The system has been built in an environment where we are able to trust our users and be confident that they're not going to want to mess with others. In the current incarnation of the system a malicious user with knowledge of the inner workings will, for instance, be able to control any device at any time, whether it is being used by someone or not. Pull requests are welcome.
+
+### Once I've got the system running, can I pretty much leave it like that or is manual intervention required?
+
+In our experience the system runs just fine most of the time, and any issues are mostly USB-related. You'll usually have to do something about once a week.
+
+The most common issue is that a device will lose all of its active USB connections momentarily. You'll get errors in the logs but the worker process will either recover or get respawned, requiring no action on your side.
+
+Below are the most common errors that do require manual intervention.
+
+* One device worker keeps getting respawned all the time
+  - Rebooting the device usually helps. If the device stays online for long enough you might be able to do it from the UI. Otherwise you'll have to SSH into the server and run `adb reboot` manually.
+  - This could be a sign that you're having USB problems, and the device wishes to be moved elsewhere. The less complex your setup is the fewer problems you're going to experience. See [troubleshooting](#troubleshooting).
+  - We're working on adding periodic automatic restarts and better graceful recovery to alleviate the issue.
+* A whole group of devices keeps dying at once
+  - They're most likely connected to the same USB hub. Either the hub is bad or you have other compatibility issues. In our experience this usually happens with USB 3.0 hubs, or you may have a problem with your USB extension card. See [recommended hardware](#recommended-hardware).
+* A device that should be online is not showing up in the list or is showing up as disconnected
+  - See [troubleshooting](#troubleshooting).
+
+### How do I uninstall STF from my device?
+
+When you unplug your device, all STF utilities except STFService stop running automatically. It doesn't do any harm to force stop or uninstall it.
+
+To uninstall the STFService, run the following command:
+
+```bash
+adb uninstall jp.co.cyberagent.stf
 ```
+
+You may also wish to remove our support binaries, although as mentioned before they won't run unless the device is actually connected to STF. You can do this as follows:
+
+```bash
+adb shell rm /data/local/tmp/minicap \
+  /data/local/tmp/minicap.so \
+  /data/local/tmp/minitouch \
+  /data/local/tmp/minirev
+```
+
+Your device is now clean.
+
+## Troubleshooting
+
+### I plugged in a new device but it's not showing up in the list.
+
+There can be various reasons for this behavior. Some especially common reasons are:
+
+* USB debugging is not enabled
+  - Enable it.
+* USB debugging is enabled but the USB connection mode is wrong
+  - Try switching between MTP and PTP modes and see if the device appears. This happens fairly often on Mac OS but almost never on Linux.
+* You don't have the ADB daemon running
+  - Make sure ADB is running with `adb start-server`.
+* You haven't authorized the ADB key yet
+  - Check your device for an authentication dialog. You may need to unplug and then plug the device back in to see the dialog.
+* ADB hasn't whitelisted the manufacturer's vendor ID
+  - [Add it yourself](https://github.com/apkudo/adbusbini) or wait for the new version that removes the stupid whitelisting feature to be deployed.
+* Insufficient power supply
+  - If you're using a USB hub, try a [powered hub](#recommended-hardware) instead (one that comes with a separate AC adapter).
+  - Even if you're using a powered hub, there might not actually be enough power for all ports simultaneously. [Get a better hub](#recommended-hardware) or use fewer ports.
+  - Your device is too power hungry, can happen with tablets. [Get a better hub](#recommended-hardware).
+* Insufficient USB host controller resources
+  - On Linux, use `dmesg` to check for this error
+  - If you've only got 9-12 devices connected and an Intel (Haswell) processor, it's most likely an issue with the processor. If your BIOS has an option to disable USB 3.0, that might help. If not, you're screwed and must get a PCIE extension card with onboard controllers.
+* Your powered USB hub does not support the device
+  - Can happen with older devices and newer Battery Charging spec compatible hubs. [Get a more compatible hub](#recommended-hardware).
+* The USB cable is bad
+  - It happens. Try another one.
+* The USB hub is broken
+  - This, too, happens. Just try a new one.
+* The device might not have a unique USB serial number, causing STF to overwrite the other device instead
+  - This has never happened to us so far, but we do have one dirt-cheap Android 4.4 device whose serial number is the wonderfully unique "0123456789ABCDEF". Presumably if we had more than one unit we would have a problem.
+
+### A device that was previously connected no longer shows up in the list.
+
+Again, there can be various reasons for this behavior as well. Some common reasons are:
+
+* The device ran out of power
+  - You can see the last reported power level in the device list, unless there was a lengthy power outage preventing the battery level from being reported.
+* Someone accidentally disabled USB debugging remotely
+  - Yes, it happens.
+* An OS update disabled USB debugging
+  - Yes, it happens. Especially on Fire OS.
+* Someone touched the USB cable just the wrong way causing a disconnection
+  - Happens easily.
+* Your PCIE USB extension card died
+  - Yes, it happens.
+* Temporary network issues
+  - Can't help with that.
+* Someone removed the device physically.
+  - Or that.
+* You're on Mac OS
+  - There's a bug in ADB's Mac OS implementation that causes devices to be lost on error conditions. The problem is more pronounced when using USB hubs. You have to unplug and then plug it back in again.
+* The USB hub broke
+  - Happens. Just try a new one.
+
+### Remote debugging (i.e. `adb connect`) disconnects while I'm working.
+
+If you're using STF locally, the most common cause is that you're not filtering the devices STF is allowed to connect to. The problem is that once you do `adb connect`, STF sees a new device and tries to set it up. Unfortunately since it's already connected via USB, setting up the new device causes the worker process handling the original USB device to fail. This is not a problem in production, since the devices should be connected to an entirely different machine anyway. For development it's a bit inconvenient. What you can do is give `stf local` a list of serials you wish to use. For example, if your device's serial is `0123456789ABCDEF`, use `stf local 0123456789ABCDEF`. Now you can use `adb connect` and STF will ignore the new device.
+
+There's another likely cause if you're running STF locally. Even if you whitelist devices by serial in STF, your IDE (e.g. Android Studio) doesn't know anything about that. From the IDE's point of view, you have two devices connected. When you try to run or debug your application, Android Studio suddenly notices that two devices are now providing JDWP connections and tries to connect to them both. This doesn't really work since the debugger will only allow one simultaneous connection, which causes problems with ADB. It then decides to disconnect the device (or sometimes itself) entirely.
+
+One more sad possibility is that your Android Studio likes to restart ADB behind the scenes. Even if you restart ADB, USB devices will soon reappear as they're still connected. The same is not true for remote devices, as ADB never stores the list anywhere. This can sometimes also happen with the Android Device Monitor (`monitor`).
+
+## Recommended hardware
+
+This is a list of components we are currently using and are proven to work.
+
+### PC components
+
+These components are for the PC where the USB devices are connected. Our operating system of choice is [CoreOS](https://coreos.com/), but any other Linux or BSD distribution should do fine. Be sure to use reasonably recent kernels, though, as they often include improvements for the USB subsystem.
+
+Our currently favorite build is as follows. It will be able to provide 28 devices using powered USB hubs, and about 10 more if you're willing to use the motherboard's USB ports, which is usually not recommended for stability reasons. Note that our component selection is somewhat limited by their availability in Japan.
+
+| Component | Recommendation | How many |
+|-----------|------|----------|
+| PC case | [XIGMATEK Nebula](http://www.xigmatek.com/product.php?productid=219) | x1 |
+| Motherboard | [ASUS H97I-PLUS](https://www.asus.com/Motherboards/H97IPLUS/) | x1 |
+| Processor | [Intel® Core™ i5-4460](http://ark.intel.com/products/80817/Intel-Core-i5-4460-Processor-6M-Cache-up-to-3_40-GHz) | x1 |
+| PSU | [Corsair CX Series™ Modular CX430M ATX Power Supply](http://www.corsair.com/en/cx-series-cx430m-modular-atx-power-supply-430-watt-80-plus-bronze-certified-modular-psu) | x1 |
+| Memory | Your favorite DDR3 1600 MHz 8GB stick | x1 |
+| SSD | [A-DATA Premier Pro SP900 64GB SSD](http://www.adata.com/en/ssd/specification/171) | x1 |
+| USB extension card | [StarTech.com 4 Port PCI Express (PCIe) SuperSpeed USB 3.0 Card Adapter w/ 4 Dedicated 5Gbps Channels - UASP - SATA / LP4 Power](http://www.startech.com/Cards-Adapters/USB-3.0/Cards/PCI-Express-USB-3-Card-4-Dedicated-Channels-4-Port~PEXUSB3S44V) | x1 |
+| USB hub | [Plugable USB 2.0 7 Port Hub with 60W Power Adapter](http://plugable.com/products/usb2-hub7bc) | x4 |
+| MicroUSB cable | [Monoprice.com 1.5ft USB 2.0 A Male to Micro 5pin Male 28/24AWG Cable w/ Ferrite Core (Gold Plated)](http://www.monoprice.com/Product?c_id=103&cp_id=10303&cs_id=1030307&p_id=5456&seq=1&format=2) | x28 |
+
+You may also need extension cords for power.
+
+Alternatively, if you find that some of your older devices [do not support the recommended hub](#troubleshooting), you may wish to mix the hub selection as follows:
+
+| Component | Recommendation | How many |
+|-----------|------|----------|
+| USB hub | [Plugable USB 2.0 7 Port Hub with 60W Power Adapter](http://plugable.com/products/usb2-hub7bc) | x2 |
+| USB hub for older devices | [System TALKS USB2-HUB4XA-BK](http://www.system-talks.co.jp/product/sgc-4X.htm) | x2-4 |
+
+You can connect up to two of the older hubs (providing up to 8 devices total) directly to the motherboard without exhausting USB host controller resources.
+
+We also have several "budget builds" with an [MSI AM1I](http://www.msi.com/product/mb/AM1I.html#hero-overview) motherboard and an [AMD Athlon 5350 4-core processor](http://www.amd.com/en-gb/products/processors/desktop/athlon). These builds, while significantly cheaper, sometimes completely lose the USB PCIE extension cards, and even a reboot will not always fix it. This may normally be fixable via BIOS USB settings, but unfortunately the budget motherboard has a complete lack of any useful options. Fortunately the AMD processor does not share Intel's Haswell [USB host control resource problem](#troubleshooting), so you can also just connect your hubs to the motherboard directly if you don't mind sharing the root bus.
+
+Below is an incomplete list of some of the components we have tried so far, including unsuitable ones.
+
+#### Tested equipment
+
+_Note that our hardware score ratings only reflect their use for the purposes of this project, and are not an overall statement about the quality of the product._
+
+##### USB extension cards
+
+| Name | Score | Short explanation |
+|------|-------|-------------------|
+| [StarTech.com 4 Port PCI Express (PCIe) SuperSpeed USB 3.0 Card Adapter w/ 4 Dedicated 5Gbps Channels - UASP - SATA / LP4 Power](http://www.startech.com/Cards-Adapters/USB-3.0/Cards/PCI-Express-USB-3-Card-4-Dedicated-Channels-4-Port~PEXUSB3S44V) | 9/10 | Reliable, well supported chipset and good power connections |
+| [StarTech.com 4 Independent Port PCI Express USB 2.0 Adapter Card](http://www.startech.com/Cards-Adapters/USB-2/Card/4-Independent-Port-PCI-Express-USB-Card~PEXUSB400) | 8/10 | Reliable |
+| [玄人志向 USB3.0RX4-P4-PCIE](http://www.kuroutoshikou.com/product/interface/usb/usb3_0rx4-p4-pcie/) | 4/10 | Well supported chipset but breaks VERY easily |
+
+Our current recommendation is [StarTech.com's PEXUSB3S44V](http://www.startech.com/Cards-Adapters/USB-3.0/Cards/PCI-Express-USB-3-Card-4-Dedicated-Channels-4-Port~PEXUSB3S44V). It provides an independent Renesas (allegedly Linux-friendliest) µPD720202 host controller for each port. Another option from the same maker is [PEXUSB400](http://www.startech.com/Cards-Adapters/USB-2/Card/4-Independent-Port-PCI-Express-USB-Card~PEXUSB400), which also works great but may offer slightly less future proofing.
+
+Our [玄人志向 USB3.0RX4-P4-PCIE](http://www.kuroutoshikou.com/product/interface/usb/usb3_0rx4-p4-pcie/) cards have been nothing but trouble and we've mostly phased them out by now. Chipset-wise it's pretty much the same thing as StarTech's offering, but the SATA power connector is awfully flimsy and can actually physically break off. The card is also incredibly sensitive to static electricity and will permanently brick itself, which happened on numerous occasions.
+
+##### USB hubs
+
+| Name | Score | Short explanation |
+|------|-------|-------------------|
+| [Plugable USB 2.0 7 Port Hub with 60W Power Adapter](http://plugable.com/products/usb2-hub7bc) | 8/10 | High power output, high reliability |
+| [Plugable USB 3.0 7-port Charging Hub with 60W Power Adapter](http://plugable.com/products/usb3-hub7bc) | 5/10 | High power output, low reliability |
+| [System TALKS USB2-HUB4XA-BK USB 2.0 hub with power adapter](http://www.system-talks.co.jp/product/sgc-4X.htm) | 7/10 | High power output on two ports which complicates device positioning, low port count |
+| [Anker USB 3.0 9-Port Hub + 5V 2.1A Charging Port](http://www.ianker.com/product/68ANHUB-B10A) | 2/10 | High port count, insufficient power |
+| [ORICO P10-U2 External ABS 10 Port 2.0 USB HUB for Laptop/Desktop-BLACK](http://www.aliexpress.com/store/product/Orico-p10-u2-computer-usb-hub-usb-splitter-10-usb-hub-interface/105327_1571541943.html) | 3/10 | High port count, insufficient power |
+| [ORICO BH4-U3-BK ABS 4 Port USB3.0 BC1.2 Charging HUB with 12V3A Power Adapter-BLACK](http://www.aliexpress.com/store/product/ORICO-BH4-U3-BK-ABS-4-Port-USB3-0-BC1-2-Charging-HUB-with-12V3A-Power/105327_2035899542.html) | 5/10 | High power output, low reliability |
+
+The best hub we've found so far is Plugable's [USB 2.0 7 Port Hub with 60W Power Adapter](http://plugable.com/products/usb2-hub7bc). It's able to provide 1.5A per port for Battery Charging spec compliant devices, which is enough to both charge and sync even tablets (although charging will not occur at maximum speed, but that's irrelevant to us). Note that even devices that are not compliant will usually charge and sync just fine, albeit slower. The more recent USB 3.0 version has proven unreliable with the rest of our components, causing the whole hub to disconnect at times. Annoyingly the ports face the opposite direction, too. Note that ORICO also provides hubs that are identical to Plugable's offerings, the latter of which seem to be rebrands.
+
+Unfortunately Plugable's USB 2.0 hub is not perfect either, at least for our purposes. It includes a physical on/off switch which can be especially annoying if your devices are in a regular office with occasional scheduled power outages. This will shut down the PC too, of course, but the problem is that once power comes back online, the hubs will be unable to switch themselves on and the devices won't charge, leading you to find a bunch of dead devices the next Monday.
+
+The System TALKS USB 2.0 hub is very reliable, but has a few annoying drawbacks. First, the power adapter only provides power to two of its four ports, while the other two are powered by the host PC. The problem with this approach is that you must figure out which devices are power hungry yourself and put them on the ports with higher current. This can complicate device setup/positioning quite a bit. Another drawback is that if the host PC is turned off, only the powered ports will keep charging the connected devices. However, the hub is amazingly compatible with pretty much anything, making it the top choice for older devices that do not support the Battery Charging hubs.
+
+Most powered USB 3.0 hubs we've tested have had a serious problem: the whole hub occasionally disconnected. This may have been caused by the specific combination of our components and/or OS, but as of yet we don't really know. Disabling USB 3.0 may help if you run into the same problem.
+
+## Translating
+
+Currently STF UI is available in English and Japanese.
+
+If you would like translate to any other language, please contribute in the [STF Transifex project](https://www.transifex.com/projects/p/stf/).
+
+For updating the source and all the translation files first you have to install the [Transifex client](http://docs.transifex.com/client/setup/).
+
+Then just run:
+```bash
+gulp translate
+```
+
+It will do the following:
+
+1. Convert all the `jade` files to `html`.
+2. Extract with gettext all translatable strings to `stf.pot`.
+3. Push `stf.pot` to Transifex.
+4. Pull from Transifex all `po` translations.
+5. Compile all `po` files to `json`.
+
+Then in order to add it officially (only needs to be done once):
+
+1. Add the language to `res/common/lang/langs.json`.
+2. Pull the specific language `tx pull -l <lang>`.
+3. Run `gulp translate`.
+
+## Testing
+
+See [TESTING.md](TESTING.md).
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-This SDK is distributed under the
-[Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0),
-see LICENSE.txt and NOTICE.txt for more information.
+See [LICENSE](LICENSE).
+
+Copyright © 2017 The OpenSTF Project. All Rights Reserved.
+
+[contact-link]: mailto:contact@openstf.io
