@@ -6,6 +6,7 @@ import router from './router'
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
 import Highlight from './plug-in/highlight.js'
+import 'github-markdown-css/github-markdown.css'
 
 Vue.use(Highlight)
 

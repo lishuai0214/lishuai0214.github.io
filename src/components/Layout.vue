@@ -86,9 +86,9 @@
                 <Header :style="{padding: 0}" class="layout-header-bar">
                     <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
                 </Header>
-                <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
-                  <div v-html="markdown2html" v-highlight class="markdown-body"></div>
-                </Content>
+                <!-- <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}"> -->
+                  <div v-html="markdown2html" class="markdown-body"></div>
+                <!-- </Content> -->
             </Layout>
         </Layout>
     </div>
