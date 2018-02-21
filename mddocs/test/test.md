@@ -26,6 +26,7 @@ HeadSpin offers a generous monthly contribution towards STF development.
 
 ### How to become a sponsor
 
+
 Please [contact us][contact-link] for sponsor arrangements. Both recurring and one-time contributions are most welcome. Contributions towards a specific issue or feature are also possible, and can be attributed to your company in our release notes and other related materials. Hardware-only contributions, whether new or used, are also extremely helpful and well received, especially if you find a device that doesn't work. Please see our [donation transparency report](DONATION-TRANSPARENCY.md) for past hardware contributions.
 
 ## Features

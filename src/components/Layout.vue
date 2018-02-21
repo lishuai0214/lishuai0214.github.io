@@ -9,6 +9,7 @@
     .layout-header-bar{
         background: #fff;
         box-shadow: 0 1px 1px rgba(0,0,0,.1);
+        width: 60px;
     }
     .layout-logo-left{
         width: 90%;
@@ -50,8 +51,7 @@
     }
     .markdown-body {
       box-sizing: border-box;
-      min-width: 200px;
-      max-width: 980px;
+      width: 980px;
       margin: 30px auto 0 auto;
       padding: 45px;
       font-size: 16px;
@@ -67,20 +67,34 @@
 <template>
     <div class="layout">
         <Layout :style="{height: `${pageHeight}px`}">
-            <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-                    <MenuItem name="1-1">
-                        <Icon type="ios-navigate"></Icon>
-                        <span>Option 1</span>
-                    </MenuItem>
-                    <MenuItem name="1-2">
-                        <Icon type="search"></Icon>
-                        <span>Option 2</span>
-                    </MenuItem>
-                    <MenuItem name="1-3">
-                        <Icon type="settings"></Icon>
-                        <span>Option 3</span>
-                    </MenuItem>
+            <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
+                <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses" :open-names="['1']" @on-select="onmenuselect">
+                    <Submenu name="1">
+                        <template slot="title">
+                            <Icon type="ios-navigate"></Icon>
+                            STF技术
+                        </template>
+                        <MenuItem name="1-1">STF介绍</MenuItem>
+                        <MenuItem name="1-2">STF安装</MenuItem>
+                        <MenuItem name="1-3">STF结构</MenuItem>
+                    </Submenu>
+                    <Submenu name="2">
+                        <template slot="title">
+                            <Icon type="ios-keypad"></Icon>
+                            测试技术
+                        </template>
+                        <MenuItem name="2-1">APP测试</MenuItem>
+                        <MenuItem name="2-2">后端测试</MenuItem>
+                        <MenuItem name="2-3">测试工具</MenuItem>
+                    </Submenu>
+                    <Submenu name="3">
+                        <template slot="title">
+                            <Icon type="ios-analytics"></Icon>
+                            TEST
+                        </template>
+                        <MenuItem name="3-1">test1</MenuItem>
+                        <MenuItem name="3-2">test2</MenuItem>
+                    </Submenu>
                 </Menu>
             </Sider>
             <Layout>
@@ -107,12 +121,6 @@
           this.getMarkdownfile()
         },
         computed: {
-            rotateIcon () {
-                return [
-                    'menu-icon',
-                    this.isCollapsed ? 'rotate-icon' : ''
-                ];
-            },
             menuitemClasses () {
                 return [
                     'menu-item',
@@ -121,29 +129,39 @@
             }
         },
         methods: {
-            collapsedSider () {
-                this.$refs.side1.toggleCollapse();
-            },
-            setpageHeight () {
-              this.pageHeight = window.innerHeight - 2
-              window.onresize = () => {
-                  return (() => {
-                      this.pageHeight = window.innerHeight - 2
-                  })()
-              }
-            },
-            getMarkdownfile(){
-              let self = this
-              const converter = new showdown.Converter()
-              axios.get('markdowndocs/test.md')
-                .then(function (response) {
-                  //self.markdown2html = converter.makeHtml(response.data)
-                  self.markdown2html = marked(response.data)
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
+          onmenuselect(data){
+            switch (data) {
+              case "1-1":
+                this.getMarkdownfile("/mddocs/stf/introduction.md")
+                break;
+              case "1-2":
+                this.getMarkdownfile()
+                break;
+              default:
+                break;
             }
-        }
-    }
+          },
+          setpageHeight () {
+            this.pageHeight = window.innerHeight - 2
+            window.onresize = () => {
+                return (() => {
+                    this.pageHeight = window.innerHeight - 2
+                })()
+            }
+          },
+          getMarkdownfile(url){
+            let self = this
+            self.markdown2html = null
+            //const converter = new showdown.Converter()
+            axios.get(url || '/mddocs/test/test.md')
+              .then(function (response) {
+                //self.markdown2html = converter.makeHtml(response.data)
+                self.markdown2html = marked(response.data)
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          }
+      }
+  }
 </script>
