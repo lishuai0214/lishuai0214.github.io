@@ -4,9 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import iView from 'iview';
-import './css/iview/dist/styles/iview.css';
+import '@/css/iview/dist/styles/iview.css';
 import Highlight from './plug-in/highlight.js'
-import 'github-markdown-css/github-markdown.css'
+import '@/css/github-markdown-css/github-markdown.css'
 
 Vue.use(Highlight)
 

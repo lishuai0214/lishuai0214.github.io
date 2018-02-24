@@ -77,6 +77,9 @@
                         <MenuItem name="1-1">1、道氏理论-技术分析的鼻祖</MenuItem>
                         <MenuItem name="1-2">2、道氏理论的形成过程</MenuItem>
                         <MenuItem name="1-3">3、道氏理论的三个假设五个定理</MenuItem>
+                        <MenuItem name="1-4">4、定理1：道氏理论的三种趋势</MenuItem>
+                        <MenuItem name="1-5">5、定理2：主要走势(空头或多头市场)</MenuItem>
+                        <MenuItem name="1-6">6、定理3：主要的空头市场</MenuItem>
                     </Submenu>
                     <Submenu name="2">
                         <template slot="title">
@@ -135,7 +138,19 @@
                 this.getMarkdownfile("/mddocs/stocks/daoshililun/1.md")
                 break;
               case "1-2":
-                this.getMarkdownfile()
+                this.getMarkdownfile("/mddocs/stocks/daoshililun/2.md")
+                break;
+              case "1-3":
+                this.getMarkdownfile("/mddocs/stocks/daoshililun/3.md")
+                break;
+              case "1-4":
+                this.getMarkdownfile("/mddocs/stocks/daoshililun/4.md")
+                break;
+              case "1-5":
+                this.getMarkdownfile("/mddocs/stocks/daoshililun/5.md")
+                break;
+              case "1-6":
+                this.getMarkdownfile("/mddocs/stocks/daoshililun/6.md")
                 break;
               default:
                 break;
@@ -153,10 +168,10 @@
             let self = this
             self.markdown2html = null
             //const converter = new showdown.Converter()
-            axios.get(url || '/mddocs/test/test1.md')
+            axios.get(url)
               .then(function (response) {
                 //self.markdown2html = converter.makeHtml(response.data)
-                self.markdown2html = marked(response.data)
+                self.markdown2html = marked(response.data, {breaks: true})
               })
               .catch(function (error) {
                 console.log(error);
