@@ -80,6 +80,13 @@
                         <MenuItem name="1-4">4、定理1：道氏理论的三种趋势</MenuItem>
                         <MenuItem name="1-5">5、定理2：主要走势(空头或多头市场)</MenuItem>
                         <MenuItem name="1-6">6、定理3：主要的空头市场</MenuItem>
+                        <MenuItem name="1-7">7、定理4：主要的多头市场</MenuItem>
+                        <MenuItem name="1-8">8、定理5：次级折返走势</MenuItem>
+                        <MenuItem name="1-9">9、道氏理论基本观点：一 浪潮、波浪及涟漪</MenuItem>
+                        <MenuItem name="1-10">10、道氏理论基本观点：二 基本趋势的几个阶段</MenuItem>
+                        <MenuItem name="1-11">8、定理5：次级折返走势</MenuItem>
+                        <MenuItem name="1-12">8、定理5：次级折返走势</MenuItem>
+                        <MenuItem name="1-13">8、定理5：次级折返走势</MenuItem>
                     </Submenu>
                     <Submenu name="2">
                         <template slot="title">
@@ -133,25 +140,29 @@
         },
         methods: {
           onmenuselect(data){
-            switch (data) {
-              case "1-1":
-                this.getMarkdownfile("/mddocs/stocks/daoshililun/1.md")
+            const num = data.split("-")
+            switch (num[0]) {
+              case "1":
+                this.getMarkdownfile(`/mddocs/stocks/daoshililun/${num[1]}.md`)
                 break;
-              case "1-2":
-                this.getMarkdownfile("/mddocs/stocks/daoshililun/2.md")
-                break;
-              case "1-3":
-                this.getMarkdownfile("/mddocs/stocks/daoshililun/3.md")
-                break;
-              case "1-4":
-                this.getMarkdownfile("/mddocs/stocks/daoshililun/4.md")
-                break;
-              case "1-5":
-                this.getMarkdownfile("/mddocs/stocks/daoshililun/5.md")
-                break;
-              case "1-6":
-                this.getMarkdownfile("/mddocs/stocks/daoshililun/6.md")
-                break;
+              // case "1-2":
+              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/2.md")
+              //   break;
+              // case "1-3":
+              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/3.md")
+              //   break;
+              // case "1-4":
+              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/4.md")
+              //   break;
+              // case "1-5":
+              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/5.md")
+              //   break;
+              // case "1-6":
+              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/6.md")
+              //   break;
+              // case "1-7":
+              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/7.md")
+              //   break;
               default:
                 break;
             }
@@ -171,7 +182,7 @@
             axios.get(url)
               .then(function (response) {
                 //self.markdown2html = converter.makeHtml(response.data)
-                self.markdown2html = marked(response.data, {breaks: true})
+                self.markdown2html = marked(response.data)
               })
               .catch(function (error) {
                 console.log(error);
