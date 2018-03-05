@@ -67,7 +67,7 @@
 <template>
     <div class="layout">
         <Layout :style="{height: `${pageHeight}px`}">
-            <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
+            <Sider :collapsed-width="78" v-model="isCollapsed" style="overflow: auto;">
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses" :open-names="['1']" @on-select="onmenuselect">
                     <Submenu name="1">
                         <template slot="title">
@@ -84,9 +84,9 @@
                         <MenuItem name="1-8">8、定理5：次级折返走势</MenuItem>
                         <MenuItem name="1-9">9、道氏理论基本观点：一 浪潮、波浪及涟漪</MenuItem>
                         <MenuItem name="1-10">10、道氏理论基本观点：二 基本趋势的几个阶段</MenuItem>
-                        <MenuItem name="1-11">8、定理5：次级折返走势</MenuItem>
-                        <MenuItem name="1-12">8、定理5：次级折返走势</MenuItem>
-                        <MenuItem name="1-13">8、定理5：次级折返走势</MenuItem>
+                        <MenuItem name="1-11">11、道氏理论基本观点：三 相互验证的原则</MenuItem>
+                        <MenuItem name="1-12">12、道氏理论的缺陷</MenuItem>
+                        <MenuItem name="1-13">13、道氏理论总结</MenuItem>
                     </Submenu>
                     <Submenu name="2">
                         <template slot="title">
@@ -128,7 +128,7 @@
         },
         created() {
           this.setpageHeight()
-          this.getMarkdownfile()
+          this.getMarkdownfile(`/mddocs/stocks/daoshililun/1.md`)
         },
         computed: {
             menuitemClasses () {
@@ -145,24 +145,6 @@
               case "1":
                 this.getMarkdownfile(`/mddocs/stocks/daoshililun/${num[1]}.md`)
                 break;
-              // case "1-2":
-              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/2.md")
-              //   break;
-              // case "1-3":
-              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/3.md")
-              //   break;
-              // case "1-4":
-              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/4.md")
-              //   break;
-              // case "1-5":
-              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/5.md")
-              //   break;
-              // case "1-6":
-              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/6.md")
-              //   break;
-              // case "1-7":
-              //   this.getMarkdownfile("/mddocs/stocks/daoshililun/7.md")
-              //   break;
               default:
                 break;
             }
