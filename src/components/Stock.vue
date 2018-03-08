@@ -68,7 +68,7 @@
     <div class="layout">
         <Layout :style="{height: `${pageHeight}px`}">
             <Sider :collapsed-width="78" v-model="isCollapsed" style="overflow: auto;">
-                <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses" :open-names="['1']" @on-select="onmenuselect">
+                <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses" @on-select="onmenuselect">
                     <Submenu name="1">
                         <template slot="title">
                             <Icon type="ios-navigate"></Icon>
@@ -91,11 +91,24 @@
                     <Submenu name="2">
                         <template slot="title">
                             <Icon type="ios-keypad"></Icon>
-                            测试技术
+                            亚当理论
                         </template>
-                        <MenuItem name="2-1">APP测试</MenuItem>
-                        <MenuItem name="2-2">后端测试</MenuItem>
-                        <MenuItem name="2-3">测试工具</MenuItem>
+                        <MenuItem name="2-1">1、亚当理论-序</MenuItem>
+                        <MenuItem name="2-2">2、第一章：亚当理论为何</MenuItem>
+                        <MenuItem name="2-3">3、第二章：神话故事</MenuItem>
+                        <MenuItem name="2-4">4、第三章：要在市场中成功，我们应该</MenuItem>
+                        <MenuItem name="2-5">5、第四章：从事操作不需要懂得太多</MenuItem>
+                        <MenuItem name="2-6">5、第五章：市场中什么事情最重要</MenuItem>
+                        <MenuItem name="2-7">7、第六章：是与应该</MenuItem>
+                        <MenuItem name="2-8">8、第七章：避免武断</MenuItem>
+                        <MenuItem name="2-9">9、第八章：操作系统</MenuItem>
+                        <MenuItem name="2-10">10、第九章：市场中什么最重要</MenuItem>
+                        <MenuItem name="2-11">11、第十章：何谓趋势</MenuItem>
+                        <MenuItem name="2-12">12、亚当理论第十一章：一再重复的最基本形式是什么样子</MenuItem>
+                        <MenuItem name="2-13">13、亚当理论第十二章：准确的重复会产生什么情形</MenuItem>
+                        <MenuItem name="2-14">14、亚当理论第十三章：什么事会造成最完美的对称</MenuItem>
+                        <MenuItem name="2-15">15、亚当理论第十四章：预判第二映像</MenuItem>
+                        <MenuItem name="2-16">16、亚当理论第十五章：用简单的方法画出第二映像图</MenuItem>
                     </Submenu>
                     <Submenu name="3">
                         <template slot="title">
@@ -144,6 +157,9 @@
             switch (num[0]) {
               case "1":
                 this.getMarkdownfile(`/mddocs/stocks/daoshililun/${num[1]}.md`)
+                break;
+              case "2":
+                this.getMarkdownfile(`/mddocs/stocks/yadanglilun/${num[1]}.md`)
                 break;
               default:
                 break;
