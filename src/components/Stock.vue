@@ -192,11 +192,12 @@
             }
           },
           setpageHeight () {
+            let self = this
             this.pageHeight = window.innerHeight - 2
             window.onresize = () => {
                 return (() => {
-                    this.pageHeight = window.innerHeight - 2
-                    this.windowwidth = document.body.clientWidth
+                    self.pageHeight = window.innerHeight - 2
+                    self.windowwidth = document.body.clientWidth
                 })()
             }
           },
