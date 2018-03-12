@@ -67,7 +67,7 @@
 <template>
     <div class="layout">
         <Layout :style="{height: `${pageHeight}px`}">
-            <Sider :collapsed-width="78" v-model="isCollapsed" style="overflow: auto;">
+            <Sider :collapsed-width="78" v-model="isCollapsed" style="overflow: auto;" v-show="showmenu">
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses" @on-select="onmenuselect">
                     <Submenu name="1">
                         <template slot="title">
@@ -140,9 +140,10 @@
                 </Menu>
             </Sider>
             <Layout>
-              <div v-html="markdown2html" v-highlight class="markdown-body"></div>
+              <div v-html="markdown2html" v-highlight class="markdown-body" :style="{width: `${windowwidth}px`}"></div>
             </Layout>
         </Layout>
+        <Button type="success" @click="onclick" style="bottom:0px;position:absolute;opacity: 0.2;">隐藏/展示目录</Button>
     </div>
 </template>
 
@@ -155,12 +156,15 @@
             return {
                 isCollapsed: false,
                 pageHeight: 900,
-                markdown2html: null
+                markdown2html: null,
+                windowwidth: 0,
+                showmenu: true
             }
         },
         created() {
           this.setpageHeight()
           this.getMarkdownfile(`/mddocs/stocks/daoshililun/1.md`)
+          this.windowwidth = document.body.clientWidth
         },
         computed: {
             menuitemClasses () {
@@ -171,6 +175,9 @@
             }
         },
         methods: {
+          onclick(){
+            this.showmenu = !this.showmenu
+          },
           onmenuselect(data){
             const num = data.split("-")
             switch (num[0]) {
