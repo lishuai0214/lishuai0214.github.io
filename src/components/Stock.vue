@@ -196,6 +196,7 @@
             window.onresize = () => {
                 return (() => {
                     this.pageHeight = window.innerHeight - 2
+                    this.windowwidth = document.body.clientWidth
                 })()
             }
           },
