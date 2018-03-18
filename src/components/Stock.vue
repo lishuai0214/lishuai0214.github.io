@@ -22,7 +22,7 @@
         transition: all .3s;
         position: fixed;
         color: #007bf7;
-        bottom: 0px;
+        bottom: 50px;
         opacity: 0.3;
     }
     .rotate-icon{
