@@ -20,6 +20,10 @@
     }
     .menu-icon{
         transition: all .3s;
+        position: fixed;
+        color: #007bf7;
+        bottom: 0px;
+        opacity: 0.3;
     }
     .rotate-icon{
         transform: rotate(-90deg);
@@ -52,8 +56,8 @@
     .markdown-body {
       box-sizing: border-box;
       width: 980px;
-      margin: 30px auto 0 auto;
-      padding: 45px;
+      margin: 0 auto 0 auto;
+      padding: 30px;
       font-size: 16px;
       background: #ffffff;
     }
@@ -67,7 +71,7 @@
 <template>
     <div class="layout">
         <Layout :style="{height: `${pageHeight}px`}">
-            <Sider :collapsed-width="78" v-model="isCollapsed" style="overflow: auto;" v-show="showmenu">
+            <Sider ref="side1" :collapsed-width="78" v-model="isCollapsed" style="overflow: auto;" v-show="isCollapsed">
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses" @on-select="onmenuselect">
                     <Submenu name="1">
                         <template slot="title">
@@ -140,10 +144,10 @@
                 </Menu>
             </Sider>
             <Layout>
-              <div v-html="markdown2html" v-highlight class="markdown-body" :style="{width: `${windowwidth}px`}"></div>
+              <Icon @click.native="collapsedSider" :class="rotateIcon" :style="{margin: '20px 20px 0', padding: 0, width: '0px'}" type="navicon-round" size="24"></Icon>
+              <div  @click="oncontentclick" v-html="markdown2html" v-highlight class="markdown-body" :style="{width: `${windowwidth}px`}"></div>
             </Layout>
         </Layout>
-        <Button type="success" @click="onclick" style="bottom:0px;position:absolute;opacity: 0.2;">隐藏/展示目录</Button>
     </div>
 </template>
 
@@ -158,7 +162,7 @@
                 pageHeight: 900,
                 markdown2html: null,
                 windowwidth: 0,
-                showmenu: true
+                isCollapsed: true
             }
         },
         created() {
@@ -170,13 +174,25 @@
             menuitemClasses () {
                 return [
                     'menu-item',
-                    this.isCollapsed ? 'collapsed-menu' : ''
+                    this.isCollapsed ? '' : 'collapsed-menu'
                 ]
+            },
+            rotateIcon () {
+                return [
+                    'menu-icon',
+                    'layout-header-bar',
+                    this.isCollapsed ? 'rotate-icon' : ''
+                ];
             }
         },
         methods: {
-          onclick(){
-            this.showmenu = !this.showmenu
+          oncontentclick(){
+            if (this.isCollapsed) {
+              this.isCollapsed = !this.isCollapsed
+            }
+          },
+          collapsedSider(){
+            this.isCollapsed = !this.isCollapsed
           },
           onmenuselect(data){
             const num = data.split("-")
