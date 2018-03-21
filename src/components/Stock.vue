@@ -136,10 +136,9 @@
                     <Submenu name="3">
                         <template slot="title">
                             <Icon type="ios-analytics"></Icon>
-                            TEST
+                            查理·芒格
                         </template>
-                        <MenuItem name="3-1">test1</MenuItem>
-                        <MenuItem name="3-2">test2</MenuItem>
+                        <MenuItem name="3-1">查理·芒格用一生实践的23条铁律</MenuItem>
                     </Submenu>
                 </Menu>
             </Sider>
@@ -202,6 +201,9 @@
                 break;
               case "2":
                 this.getMarkdownfile(`/mddocs/stocks/yadanglilun/${num[1]}.md`)
+                break;
+              case "3":
+                this.getMarkdownfile(`/mddocs/stocks/chalimangge/${num[1]}.md`)
                 break;
               default:
                 break;
