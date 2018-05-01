@@ -148,7 +148,7 @@
                             <Icon type="ios-analytics"></Icon>
                             查理·芒格
                         </template>
-                        <MenuItem name="3-1">查理·芒格用一生实践的23条铁律</MenuItem>
+                        <MenuItem name="4-1">查理·芒格用一生实践的23条铁律</MenuItem>
                     </Submenu>
                 </Menu>
             </Sider>
