@@ -135,6 +135,16 @@
                     </Submenu>
                     <Submenu name="3">
                         <template slot="title">
+                            <Icon type="ios-keypad"></Icon>
+                            股市晴雨表
+                        </template>
+                        <MenuItem name="3-1">1、《股市晴雨表》序言</MenuItem>
+                        <MenuItem name="3-2">2、第1章 周期与股市记录</MenuItem>
+                        <MenuItem name="3-3">3、第2章 电影中的华尔街</MenuItem>
+                        <MenuItem name="3-4">4、第3章 查尔斯·H·道及其理论</MenuItem>
+                    </Submenu>
+                    <Submenu name="4">
+                        <template slot="title">
                             <Icon type="ios-analytics"></Icon>
                             查理·芒格
                         </template>
@@ -203,6 +213,9 @@
                 this.getMarkdownfile(`/mddocs/stocks/yadanglilun/${num[1]}.md`)
                 break;
               case "3":
+                this.getMarkdownfile(`/mddocs/stocks/gushiqingyubiao/${num[1]}.md`)
+                break;
+              case "4":
                 this.getMarkdownfile(`/mddocs/stocks/chalimangge/${num[1]}.md`)
                 break;
               default:
