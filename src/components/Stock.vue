@@ -145,9 +145,6 @@
                             <Icon type="ios-analytics"></Icon>
                             查理·芒格
                         </template>
-                    </Submenu>
-                    </Submenu>
-                    </Submenu>
                         <MenuItem v-for="(menu, index) in mymenus.chalimangge.content" :name="mymenus.chalimangge.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
                     </Submenu>
                 </Menu>
