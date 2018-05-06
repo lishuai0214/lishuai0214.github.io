@@ -135,13 +135,10 @@
                     </Submenu>
                     <Submenu name="3">
                         <template slot="title">
-                            <Icon type="ios-keypad"></Icon>
+                            <Icon type="earth"></Icon>
                             股市晴雨表
                         </template>
-                        <MenuItem name="3-1">1、《股市晴雨表》序言</MenuItem>
-                        <MenuItem name="3-2">2、第1章 周期与股市记录</MenuItem>
-                        <MenuItem name="3-3">3、第2章 电影中的华尔街</MenuItem>
-                        <MenuItem name="3-4">4、第3章 查尔斯·H·道及其理论</MenuItem>
+                        <MenuItem v-for="(menu, index) in mymenus.gushiqingyubiao.content" :name="mymenus.gushiqingyubiao.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
                     </Submenu>
                     <Submenu name="4">
                         <template slot="title">
@@ -171,7 +168,37 @@
                 pageHeight: 900,
                 markdown2html: null,
                 windowwidth: 0,
-                isCollapsed: true
+                isCollapsed: true,
+                mymenus:{
+                    gushiqingyubiao:{
+                        number: 3,
+                        content: [
+                            '1、《股市晴雨表》序言',
+                            '2、第1章 周期与股市记录',
+                            '3、第2章 电影中的华尔街',
+                            '4、第3章 查尔斯·H·道及其理论',
+                            '5、第4章 道氏理论：应用于投机',
+                            '6、第5章 市场大势',
+                            '7、第6章 预测的特有功能',
+                            '8、第7章 操纵行为和专业性交易',
+                            '9、第8章 市场的结构',
+                            '10、第9章 晴雨表中的“水分”',
+                            '11、第10章 “海面飘来一朵小云彩，就像一只男人的手”——1906年',
+                            '12、第11章 严格的周期性',
+                            '13、第12章 预测牛市——1908～09年',
+                            '14、第13章 次级运动的本质和功能',
+                            '14、第13章 次级运动的本质和功能',
+                            '15、第14章 1909年及历史的某些缺陷',
+                            '17、第16章 规则的一个例外情况',
+                            '18、第17章 最好的证明——1917年',
+                            '19、第18章 管制为铁路公司带来了什么',
+                            '20、第19章 研究市场操纵行为——1900—01年',
+                            '21、第20章 一些结论——1910—14年',
+                            '22、第21章 把事实纳入理论——1922—25年',
+                            '23、第22章 对投机者的一些建议'
+                        ]
+                    }
+                }
             }
         },
         created() {
