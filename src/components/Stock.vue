@@ -145,7 +145,10 @@
                             <Icon type="ios-analytics"></Icon>
                             查理·芒格
                         </template>
-                        <MenuItem name="4-1">查理·芒格用一生实践的23条铁律</MenuItem>
+                    </Submenu>
+                    </Submenu>
+                    </Submenu>
+                        <MenuItem v-for="(menu, index) in mymenus.chalimangge.content" :name="mymenus.chalimangge.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
                     </Submenu>
                 </Menu>
             </Sider>
@@ -196,6 +199,15 @@
                             '21、第20章 一些结论——1910—14年',
                             '22、第21章 把事实纳入理论——1922—25年',
                             '23、第22章 对投机者的一些建议'
+                        ]
+                    },
+                    chalimangge:{
+                        number: 4,
+                        content: [
+                            '1、查理·芒格：用一生实践的23条铁律',
+                            '2、查理芒格：22条误判心理，告诉你偏见是如何产生的？',
+                            '3、查理.芒格:人类的25个心理误判',
+                            '4、芒格最著名的演讲：第十一讲：人类误判心理学'
                         ]
                     }
                 }
