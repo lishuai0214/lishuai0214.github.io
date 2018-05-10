@@ -147,6 +147,13 @@
                         </template>
                         <MenuItem v-for="(menu, index) in mymenus.chalimangge.content" :name="mymenus.chalimangge.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
                     </Submenu>
+                    <Submenu name="5">
+                        <template slot="title">
+                            <Icon type="ios-analytics"></Icon>
+                            其他文章
+                        </template>
+                        <MenuItem v-for="(menu, index) in mymenus.others.content" :name="mymenus.others.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
+                    </Submenu>
                 </Menu>
             </Sider>
             <Layout>
@@ -206,6 +213,13 @@
                             '3、查理.芒格:人类的25个心理误判',
                             '4、芒格最著名的演讲：第十一讲：人类误判心理学'
                         ]
+                    },
+                    others:{
+                        number: 5,
+                        content: [
+                            '1、格雷厄姆的失败[转自网络]',
+                            '2、格雷厄姆价值投资原则'
+                        ]
                     }
                 }
             }
@@ -253,6 +267,9 @@
                 break;
               case "4":
                 this.getMarkdownfile(`/mddocs/stocks/chalimangge/${num[1]}.md`)
+                break;
+               case "5":
+                this.getMarkdownfile(`/mddocs/stocks/others/${num[1]}.md`)
                 break;
               default:
                 break;
