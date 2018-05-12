@@ -13,7 +13,7 @@ export default new Router({
       component: Layout
     },
     {
-      path: '/stock',
+      path: '/stock/*',
       name: 'Stock',
       component: Stock
     }

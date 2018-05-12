@@ -73,86 +73,47 @@
         <Layout :style="{height: `${pageHeight}px`}">
             <Sider ref="side1" :collapsed-width="78" v-model="isCollapsed" style="overflow: auto;" v-show="isCollapsed">
                 <Menu active-name="1-1" theme="dark" width="auto" :class="menuitemClasses" @on-select="onmenuselect">
-                    <Submenu name="1">
+                    <Submenu name="daoshililun">
                         <template slot="title">
                             <Icon type="ios-navigate"></Icon>
                             道氏理论
                         </template>
-                        <MenuItem name="1-1">1、道氏理论-技术分析的鼻祖</MenuItem>
-                        <MenuItem name="1-2">2、道氏理论的形成过程</MenuItem>
-                        <MenuItem name="1-3">3、道氏理论的三个假设五个定理</MenuItem>
-                        <MenuItem name="1-4">4、定理1：道氏理论的三种趋势</MenuItem>
-                        <MenuItem name="1-5">5、定理2：主要走势(空头或多头市场)</MenuItem>
-                        <MenuItem name="1-6">6、定理3：主要的空头市场</MenuItem>
-                        <MenuItem name="1-7">7、定理4：主要的多头市场</MenuItem>
-                        <MenuItem name="1-8">8、定理5：次级折返走势</MenuItem>
-                        <MenuItem name="1-9">9、道氏理论基本观点：一 浪潮、波浪及涟漪</MenuItem>
-                        <MenuItem name="1-10">10、道氏理论基本观点：二 基本趋势的几个阶段</MenuItem>
-                        <MenuItem name="1-11">11、道氏理论基本观点：三 相互验证的原则</MenuItem>
-                        <MenuItem name="1-12">12、道氏理论的缺陷</MenuItem>
-                        <MenuItem name="1-13">13、道氏理论总结</MenuItem>
+                        <MenuItem v-for="(menu, index) in mymenus.daoshililun.content" :name="mymenus.daoshililun.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>     
                     </Submenu>
-                    <Submenu name="2">
+                    <Submenu name="yadanglilun">
                         <template slot="title">
                             <Icon type="ios-keypad"></Icon>
                             亚当理论
                         </template>
-                        <MenuItem name="2-1">1、亚当理论-序</MenuItem>
-                        <MenuItem name="2-2">2、第一章：亚当理论为何</MenuItem>
-                        <MenuItem name="2-3">3、第二章：神话故事</MenuItem>
-                        <MenuItem name="2-4">4、第三章：要在市场中成功，我们应该</MenuItem>
-                        <MenuItem name="2-5">5、第四章：从事操作不需要懂得太多</MenuItem>
-                        <MenuItem name="2-6">5、第五章：市场中什么事情最重要</MenuItem>
-                        <MenuItem name="2-7">7、第六章：是与应该</MenuItem>
-                        <MenuItem name="2-8">8、第七章：避免武断</MenuItem>
-                        <MenuItem name="2-9">9、第八章：操作系统</MenuItem>
-                        <MenuItem name="2-10">10、第九章：市场中什么最重要</MenuItem>
-                        <MenuItem name="2-11">11、第十章：何谓趋势</MenuItem>
-                        <MenuItem name="2-12">12、第十一章：一再重复的最基本形式是什么样子</MenuItem>
-                        <MenuItem name="2-13">13、第十二章：准确的重复会产生什么情形</MenuItem>
-                        <MenuItem name="2-14">14、第十三章：什么事会造成最完美的对称</MenuItem>
-                        <MenuItem name="2-15">15、第十四章：预判第二映像</MenuItem>
-                        <MenuItem name="2-16">16、第十五章：用简单的方法画出第二映像图</MenuItem>
-                        <MenuItem name="2-17">17、第十六章：预测包含什么？</MenuItem>
-                        <MenuItem name="2-18">18、第十七章：哪种市场才适合操作</MenuItem>
-                        <MenuItem name="2-19">19、第十八章：回想选择市场的问题</MenuItem>
-                        <MenuItem name="2-20">20、第十九章：头部和底部在哪里？</MenuItem>
-                        <MenuItem name="2-21">21、第二十章：有关市场的重要声明</MenuItem>
-                        <MenuItem name="2-22">22、第二十一章：坐赚大钱</MenuItem>
-                        <MenuItem name="2-23">23、第二十二章：停损出场怎么办？</MenuItem>
-                        <MenuItem name="2-24">24、第二十三章：纪律</MenuItem>
-                        <MenuItem name="2-25">25、第二十四章：回顾亚当理论</MenuItem>
-                        <MenuItem name="2-26">26、第二十五章：何时进场操作</MenuItem>
-                        <MenuItem name="2-27">27、第二十六章：实例棉花</MenuItem>
-                        <MenuItem name="2-28">28、第二十七章：第一个例子的总结</MenuItem>
-                        <MenuItem name="2-29">29、第二十八章：操作十大守则</MenuItem>
-                        <MenuItem name="2-30">30、第二十九章：十大守则详解</MenuItem>
-                        <MenuItem name="2-31">31、第三十章：实例――柯达公司</MenuItem>
-                        <MenuItem name="2-32">32、第三十一章：实例――咖啡豆</MenuItem>
-                        <MenuItem name="2-33">33、第三十二章：心像化</MenuItem>
-                        <MenuItem name="2-34">34、第三十三章：好玩的商品操作者</MenuItem>
-                        <MenuItem name="2-35">35、亚当理论结语</MenuItem>
+                        <MenuItem v-for="(menu, index) in mymenus.yadanglilun.content" :name="mymenus.yadanglilun.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>          
                     </Submenu>
-                    <Submenu name="3">
+                    <Submenu name="gushiqingyubiao">
                         <template slot="title">
                             <Icon type="earth"></Icon>
                             股市晴雨表
                         </template>
                         <MenuItem v-for="(menu, index) in mymenus.gushiqingyubiao.content" :name="mymenus.gushiqingyubiao.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
                     </Submenu>
-                    <Submenu name="4">
+                    <Submenu name="chalimangge">
                         <template slot="title">
                             <Icon type="ios-analytics"></Icon>
                             查理·芒格
                         </template>
                         <MenuItem v-for="(menu, index) in mymenus.chalimangge.content" :name="mymenus.chalimangge.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
                     </Submenu>
-                    <Submenu name="5">
+                    <Submenu name="others">
                         <template slot="title">
                             <Icon type="ios-analytics"></Icon>
                             其他文章
                         </template>
                         <MenuItem v-for="(menu, index) in mymenus.others.content" :name="mymenus.others.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
+                    </Submenu>
+                    <Submenu name="chaogudezhihui">
+                        <template slot="title">
+                            <Icon type="ios-analytics"></Icon>
+                            炒股的智慧
+                        </template>
+                        <MenuItem v-for="(menu, index) in mymenus.chaogudezhihui.content" :name="mymenus.chaogudezhihui.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
                     </Submenu>
                 </Menu>
             </Sider>
@@ -167,7 +128,6 @@
 <script>
     import axios from 'axios'
     import marked from 'marked'
-    import showdown from 'showdown'
     export default {
         data () {
             return {
@@ -177,6 +137,64 @@
                 windowwidth: 0,
                 isCollapsed: true,
                 mymenus:{
+                    daoshililun: {
+                        number: 1,
+                        content : [
+                        '1、道氏理论-技术分析的鼻祖',
+                        '2、道氏理论的形成过程',
+                        '3、道氏理论的三个假设五个定理',
+                        '4、定理1：道氏理论的三种趋势',
+                        '5、定理2：主要走势(空头或多头市场)',
+                        '6、定理3：主要的空头市场',
+                        '7、定理4：主要的多头市场',
+                        '8、定理5：次级折返走势',
+                        '9、道氏理论基本观点：一 浪潮、波浪及涟漪',
+                        '10、道氏理论基本观点：二 基本趋势的几个阶段',
+                        '11、道氏理论基本观点：三 相互验证的原则',
+                        '12、道氏理论的缺陷',
+                        '13、道氏理论总结',
+                        ]
+                    },
+                    yadanglilun: {
+                        number: 2,
+                        content : [
+                        '1、亚当理论-序',
+                        '2、第一章：亚当理论为何',
+                        '3、第二章：神话故事',
+                        '4、第三章：要在市场中成功，我们应该',
+                        '5、第四章：从事操作不需要懂得太多',
+                        '6、第五章：市场中什么事情最重要',
+                        '7、第六章：是与应该',
+                        '8、第七章：避免武断',
+                        '9、第八章：操作系统',
+                        '10、第九章：市场中什么最重要',
+                        '11、第十章：何谓趋势',
+                        '12、第十一章：一再重复的最基本形式是什么样子',
+                        '13、第十二章：准确的重复会产生什么情形',
+                        '14、第十三章：什么事会造成最完美的对称',
+                        '15、第十四章：预判第二映像',
+                        '16、第十五章：用简单的方法画出第二映像图',
+                        '17、第十六章：预测包含什么？',
+                        '18、第十七章：哪种市场才适合操作',
+                        '19、第十八章：回想选择市场的问题',
+                        '20、第十九章：头部和底部在哪里？',
+                        '21、第二十章：有关市场的重要声明',
+                        '22、第二十一章：坐赚大钱',
+                        '23、第二十二章：停损出场怎么办？',
+                        '4、第二十三章：纪律',
+                        '25、第二十四章：回顾亚当理论',
+                        '26、第二十五章：何时进场操作',
+                        '27、第二十六章：实例棉花',
+                        '28、第二十七章：第一个例子的总结',
+                        '29、第二十八章：操作十大守则',
+                        '30、第二十九章：十大守则详解',
+                        '31、第三十章：实例――柯达公司',
+                        '32、第三十一章：实例――咖啡豆',
+                        '33、第三十二章：心像化',
+                        '34、第三十三章：好玩的商品操作者',
+                        '35、亚当理论结语'
+                        ]
+                    },
                     gushiqingyubiao:{
                         number: 3,
                         content: [
@@ -220,14 +238,25 @@
                             '1、格雷厄姆的失败[转自网络]',
                             '2、格雷厄姆价值投资原则'
                         ]
+                    },
+                    chaogudezhihui:{
+                        number: 6,
+                        content: [
+                            '1、《炒股的智慧》前言',
+                            '2、《炒股的智慧》引子·三则故事'
+                        ]
                     }
                 }
             }
         },
         created() {
-          this.setpageHeight()
-          this.getMarkdownfile(`/mddocs/stocks/daoshililun/1.md`)
-          this.windowwidth = document.body.clientWidth
+            this.setpageHeight()
+            this.getMarkdownfile(`/mddocs/stocks/daoshililun/1.md`)
+            this.windowwidth = document.body.clientWidth
+        },
+        mounted(){
+            let pathArray = this.$route.path.split('/')
+            this.getMarkdownfile(`/mddocs/stocks/${pathArray[2]}/${pathArray[3]}.md`)
         },
         computed: {
             menuitemClasses () {
@@ -254,22 +283,32 @@
             this.isCollapsed = !this.isCollapsed
           },
           onmenuselect(data){
+            console.log(data)
             const num = data.split("-")
             switch (num[0]) {
               case "1":
+                window.location.href = `/#/stock/daoshililun/${num[1]}`
                 this.getMarkdownfile(`/mddocs/stocks/daoshililun/${num[1]}.md`)
                 break;
               case "2":
+                window.location.href = `/#/stock/yadanglilun/${num[1]}`
                 this.getMarkdownfile(`/mddocs/stocks/yadanglilun/${num[1]}.md`)
                 break;
               case "3":
+                window.location.href = `/#/stock/gushiqingyubiao/${num[1]}`
                 this.getMarkdownfile(`/mddocs/stocks/gushiqingyubiao/${num[1]}.md`)
                 break;
               case "4":
+                window.location.href = `/#/stock/chalimangge/${num[1]}`
                 this.getMarkdownfile(`/mddocs/stocks/chalimangge/${num[1]}.md`)
                 break;
-               case "5":
+              case "5":
+                window.location.href = `/#/stock/others/${num[1]}`
                 this.getMarkdownfile(`/mddocs/stocks/others/${num[1]}.md`)
+                break;
+              case "6":
+                window.location.href = `/#/stock/chaogudezhihui/${num[1]}`
+                this.getMarkdownfile(`/mddocs/stocks/chaogudezhihui/${num[1]}.md`)
                 break;
               default:
                 break;
