@@ -103,14 +103,14 @@
                     </Submenu>
                     <Submenu name="others">
                         <template slot="title">
-                            <Icon type="ios-analytics"></Icon>
+                            <Icon type="ios-color-filter"></Icon>
                             其他文章
                         </template>
                         <MenuItem v-for="(menu, index) in mymenus.others.content" :name="mymenus.others.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
                     </Submenu>
                     <Submenu name="chaogudezhihui">
                         <template slot="title">
-                            <Icon type="ios-analytics"></Icon>
+                            <Icon type="help-buoy"></Icon>
                             炒股的智慧
                         </template>
                         <MenuItem v-for="(menu, index) in mymenus.chaogudezhihui.content" :name="mymenus.chaogudezhihui.number + '-' + (index + 1)" :key="index">{{menu}}</MenuItem>
@@ -236,7 +236,8 @@
                         number: 5,
                         content: [
                             '1、格雷厄姆的失败[转自网络]',
-                            '2、格雷厄姆价值投资原则'
+                            '2、格雷厄姆价值投资原则',
+                            '3、<<如果>  路德阿德.纪伯伦'
                         ]
                     },
                     chaogudezhihui:{
@@ -277,7 +278,7 @@
             if(pathArray.length > 3){
                 this.getMarkdownfile(`/mddocs/stocks/${pathArray[2]}/${pathArray[3]}.md`)
             }else{
-                this.getMarkdownfile(`/mddocs/stocks/daoshililun/1.md`)
+                this.getMarkdownfile(`/mddocs/stocks/others/3.md`)
             }
         },
         computed: {

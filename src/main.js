@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import iView from 'iview';
-import '@/css/iview/dist/styles/iview.css';
+import 'iview/dist/styles/iview.css';
 import Highlight from './plug-in/highlight.js'
 import '@/css/github-markdown-css/github-markdown.css'
 
