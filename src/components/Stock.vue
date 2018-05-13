@@ -242,21 +242,43 @@
                     chaogudezhihui:{
                         number: 6,
                         content: [
-                            '1、《炒股的智慧》前言',
-                            '2、《炒股的智慧》引子·三则故事'
+                            '1、前言',
+                            '2、引子·三则故事',
+                            '3、炒股与人性',
+                            '4、炒股与赌博的区别',
+                            '5、一般股民炒股为何失败',
+                            '6、股票分析的基本知识',
+                            '7、基本面分析的基本知识',
+                            '8、股票技术分析的基本知识',
+                            '9、股票的正常运动和周期运动',
+                            '10、股票技术分析之我见',
+                            '11、炒股成功的要素',
+                            '12、炒股成功的基本要诀',
+                            '13、资金管理-怎样在股市下注',
+                            '14、成功投资者所具有的共性',
+                            '15、 何时买股票何时卖股票',
+                            '16、华尔街的家训',
+                            '17、大师论炒股',
+                            '18、从有招到无招---怎样在心理上建设自己',
+                            '19、抓住大机会',
+                            '20、学习炒股的四个阶段',
+                            '21、回答关于本书的几个问题',
+                            '22、附录 金钱的反思',
+                            '23、炒股的智慧读后感'
                         ]
                     }
                 }
             }
         },
-        created() {
-            this.setpageHeight()
-            this.getMarkdownfile(`/mddocs/stocks/daoshililun/1.md`)
-            this.windowwidth = document.body.clientWidth
-        },
         mounted(){
+            this.setpageHeight()
+            this.windowwidth = document.body.clientWidth
             let pathArray = this.$route.path.split('/')
-            this.getMarkdownfile(`/mddocs/stocks/${pathArray[2]}/${pathArray[3]}.md`)
+            if(pathArray.length > 3){
+                this.getMarkdownfile(`/mddocs/stocks/${pathArray[2]}/${pathArray[3]}.md`)
+            }else{
+                this.getMarkdownfile(`/mddocs/stocks/daoshililun/1.md`)
+            }
         },
         computed: {
             menuitemClasses () {
