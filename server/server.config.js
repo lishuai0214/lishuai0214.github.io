@@ -1,7 +1,7 @@
 /**
  * Just replace BAREUR
  */ 
-const BAREURL = 'https://hnetweb.nbzdwss78.tk'
+const BAREURL = 'https://worker-frosty-resonance-d52a.blueshark.workers.dev'
 
 /**
  * Non-developers, please modify without authorization, 98% report errors!
