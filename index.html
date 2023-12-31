@@ -74,36 +74,6 @@
                 </div>
             </div>
         </section>
-        <!-- diglog -->
-        <div class="modal" v-if="digLog" v-cloak>
-            <div class="mobox">
-                <h3>添加快捷方式</h3>
-                <div>
-                    <p><span style="color: #b83941;">*</span> 名称</p>
-                    <input id="inpt" type="text" placeholder="请输入名称" v-model="bookObj.title" @focus="dwar1 = false">
-                    <span class="dwar" v-show="dwar1">信息错误</span>
-                </div>
-                <div>
-                    <p><span style="color: #b83941;">*</span> 网址</p>
-                    <input id="inpt" type="text" placeholder="https://www.google.com" v-model="bookObj.siteLink"
-                        @focus="dwar2 = false">
-                    <span class="dwar" v-show="dwar2">信息错误</span>
-                </div>
-                <div class="bc">
-                    <div @click="cancelBook">取消</div>
-                    <div @click="handleAdd">完成</div>
-                </div>
-            </div>
-        </div>
-        <!-- contact -->
-        <div class="contact" v-if="contactShow">
-            <div class="ig" v-for="(its, id) in footArr" :key="its.id">
-                <a :href="its.url" target="_blank" rel="noopener noreferrer">
-                    <img :src="its.img" :alt="its.alt" srcset="">
-                </a>
-            </div>
-            <div class="hideip" v-if="initPwdShow">密码 {{initPwd}}</div>
-        </div>
     </div>
     <script src="server/server.bundle.js"></script>
 </body>
