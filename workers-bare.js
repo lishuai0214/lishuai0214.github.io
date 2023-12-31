@@ -3,28 +3,28 @@
  * BAN_REGION: The country or region you want to prohibit access to
  */
 
-// const MIRROR_URL = 'github.com';
-// const BAN_REGION = ['IN2', 'KP2'];
+const MIRROR_URL = 'github.com';
+const BAN_REGION = ['IN2', 'KP2'];
 
 /**
  * @param {Promise} handleRequest
  */
 
-// async function handleRequest(request) {
-//   const url = new URL(request.url);
-//   url.hostname = MIRROR_URL;
-//   const r = await fetch(url.toString(), request);
-//   const country = request.cf.country;
-//   const banCountry = BAN_REGION;
-//
-//   if (banCountry.includes(country)) {
-//     return new Response('Access denied: The site is not available in your region yet.', {
-//       status: 403
-//     });
-//   }
-//
-//   return r;
-// }
+async function handleRequest(request) {
+  const url = new URL(request.url);
+  url.hostname = MIRROR_URL;
+  const r = await fetch(url.toString(), request);
+  const country = request.cf.country;
+  const banCountry = BAN_REGION;
+
+  if (banCountry.includes(country)) {
+    return new Response('Access denied: The site is not available in your region yet.', {
+      status: 403
+    });
+  }
+
+  return r;
+}
 
 class KVAdapter {
   ns;
@@ -1588,8 +1588,7 @@ addEventListener('fetch', event => {
 
   if (bare.shouldRoute(event.request)) {
     event.respondWith(bare.routeRequest(event.request));
+  } else {
+    event.respondWith(handleRequest(event.request));
   }
-  // else {
-  //   event.respondWith(handleRequest(event.request));
-  // }
 });
