@@ -60,19 +60,6 @@
                     </div>
                 </div>
             </div>
-            <div class="bookmark" v-show="bookmark">
-                <div class="mbox" v-for="(it,index) in bookArr">
-                    <div class="img">
-                        <img :src="it.icon" alt="" srcset="" @click="addBook(index,it)">
-                        <div class="edit" @click="editShow(index)" v-if="index !== bookArr.length - 1">...</div>
-                        <div class="dlog" @mouseleave="leave" :class="current == index ? 'dlogShow' : 'dlogClose'">
-                            <div @click="mobifBook(it)">修改</div>
-                            <div @click="moveBook(it,index)">移除</div>
-                        </div>
-                    </div>
-                    <div class="text" @click="addBook(index,it)">{{it.name}}</div>
-                </div>
-            </div>
         </section>
     </div>
     <script src="server/server.bundle.js"></script>
